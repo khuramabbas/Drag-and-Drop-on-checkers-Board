@@ -1,0 +1,145 @@
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.TransferHandler;
+
+
+
+public class Mainframe extends JFrame {
+	public static int rows = 8 ;
+	public static int columns = 8;
+	public static Color col1 = new Color(0,0,0);
+	public static Color col2 = Color.white;
+			
+	private JLabel Label;
+	JPanel[][] panel1 = new JPanel[8][8];
+    
+        public static JPanel MainPanel;
+
+        
+	
+  public Mainframe(){
+	  super("Checkers");
+	  
+     
+     MouseEventHandler handler = new MouseEventHandler();
+      
+      
+	 ImageIcon blackPiece = new ImageIcon(this.getClass().getResource("BLACK.png"));
+	 ImageIcon whitePiece = new ImageIcon(this.getClass().getResource("WHITE.png"));
+	 
+	 JPanel backPanel = new JPanel();
+	 add(backPanel);
+	 backPanel.setLayout(null);
+
+	 
+	 JLabel mainLabel = new JLabel(new ImageIcon(this.getClass().getResource("backImage.jpg")));
+     mainLabel.setBounds(0, -50, 1200, 800);
+	 backPanel.add(mainLabel);
+     
+         
+	 MainPanel = new JPanel();
+     MainPanel.setOpaque(false);   
+	 
+      MainPanel.setBounds(270, 80, 660, 660);
+      
+      
+      mainLabel.add(MainPanel);
+      
+      MainPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+      
+         
+	  MainPanel.setLayout(new GridLayout(rows, columns));
+	 
+	  
+	  
+	  Color temp;
+	 
+		 for  (int i=0; i < rows; i++)
+			 
+		 {
+			
+			 if (i%2==0)
+			 {
+				 temp = col1;
+				 
+			 }
+			 else {
+				 temp = col2;
+			 }
+			
+		  for (int j=0; j < columns; j++)
+		  {
+			  
+			  
+			  panel1[i][j] = new JPanel(); 
+			  panel1[i][j].setBackground(temp);	
+			  
+			  if(temp == col2){
+				  panel1[i][j].setOpaque(false);
+			  }
+			  
+
+			  if (temp.equals(col1))
+			  {
+				  temp = col2;
+				 
+				  
+				  if (i>4){
+					  Label = new JLabel(blackPiece);
+				  }
+				  else if (i<3){
+					  Label = new JLabel(whitePiece);
+				  }
+				  else{
+					  Label = new JLabel();
+				  }
+			
+				 
+				  Label.setBackground(Color.WHITE);
+				  Label.setBorder(null);
+			     	
+				  Label.setTransferHandler(new TransferHandler("icon"));
+				 
+				  
+				  
+				 
+
+				  panel1[i][j].add(Label);
+                              
+				 
+				  
+			  }
+			  else{
+				  temp = col1;
+			  }
+			  
+			  
+			  
+			  MainPanel.add(panel1[i][j]);
+			 
+		  }
+		 }
+		  MainPanel.addMouseListener(handler);
+	          
+	  
+  
+	 
+	 setSize(1200, 800);
+	  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          setVisible(true);
+          setResizable(false);
+          setLocationRelativeTo(null);
+  }
+  
+  
+  		
+  		
+  	}
+  
+  
